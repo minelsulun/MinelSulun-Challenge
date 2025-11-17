@@ -29,6 +29,20 @@ public fun create_hero(name: String, image_url: String, power: u64, ctx: &mut Tx
         // Hints:
         // Use ctx.epoch_timestamp_ms() for timestamp
     //TODO: Use transfer::freeze_object() to make metadata immutable
+    let hero = Hero {
+        id: object::new(ctx), // Create a unique ID
+        name: name,
+        image_url: image_url,
+        power: power,
+    };
+    let sender = tx_context::sender(ctx);
+    transfer::transfer_object(&hero, sender);
+    let metadata = HeroMetadata {
+        id: object::new(ctx),
+        timestamp: ctx.epoch_timestamp_ms(),
+    };
+    transfer::freeze_object(&metadata);
+    
 }
 
 // ========= GETTER FUNCTIONS =========
