@@ -14,6 +14,14 @@ export const createHero = (
     // Hints:
     // Use tx.pure.string() for string arguments
     // Use tx.pure.u64() for number arguments (convert power to BigInt)
+  tx.moveCall({
+    target: `${packageId}::hero::create_hero`,
+    arguments: [
+      tx.pure.string(name),
+      tx.pure.string(imageUrl),
+      tx.pure.u64(BigInt(Math.floor(Number(power) * 1_000_000_000))) // safeguard if power given as SUI-like number
+    ],
+  });
 
   return tx;
 };

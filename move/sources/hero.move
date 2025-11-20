@@ -35,14 +35,13 @@ public fun create_hero(name: String, image_url: String, power: u64, ctx: &mut Tx
         image_url: image_url,
         power: power,
     };
-    let sender = tx_context::sender(ctx);
-    transfer::transfer_object(&hero, sender);
+     let sender = tx_context::sender(ctx);
+        transfer::transfer(hero, sender);
     let metadata = HeroMetadata {
         id: object::new(ctx),
         timestamp: ctx.epoch_timestamp_ms(),
     };
-    transfer::freeze_object(&metadata);
-    
+    transfer::freeze_object(metadata);
 }
 
 // ========= GETTER FUNCTIONS =========
