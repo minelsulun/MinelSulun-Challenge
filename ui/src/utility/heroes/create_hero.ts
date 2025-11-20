@@ -19,7 +19,7 @@ export const createHero = (
     arguments: [
       tx.pure.string(name),
       tx.pure.string(imageUrl),
-      tx.pure.u64(BigInt(Math.floor(Number(power) * 1_000_000_000))) // safeguard if power given as SUI-like number
+      tx.pure.u64(BigInt(power))
     ],
   });
 

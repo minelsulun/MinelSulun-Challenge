@@ -79,8 +79,8 @@ public fun battle(hero: Hero, arena: Arena, ctx: &mut TxContext) {
     let warrior_power = hero_mod::hero_power(&warrior);
 
     if(hero_power > warrior_power) {
-        transfer::transfer(hero, sender);
-        transfer::transfer(warrior, sender);
+        transfer::public_transfer(hero, sender);
+        transfer::public_transfer(warrior, sender);
 
         event::emit(ArenaCompleted {
             winner_hero_id: hero_id,
@@ -88,8 +88,8 @@ public fun battle(hero: Hero, arena: Arena, ctx: &mut TxContext) {
             timestamp: now,
         });
     } else {
-        transfer::transfer(hero, owner);
-        transfer::transfer(warrior, owner);
+        transfer::public_transfer(hero, owner);
+        transfer::public_transfer(warrior, owner);
 
         event::emit(ArenaCompleted {
             winner_hero_id: warrior_id,
